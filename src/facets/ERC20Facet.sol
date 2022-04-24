@@ -12,6 +12,14 @@ contract ERC20Facet {
 
   /// LOGIC
 
+  function mint(address account, uint256 amount) external {
+    LibERC20._mint(account, amount);
+  }
+
+  function burn(address account, uint256 amount) external {
+    LibERC20._burn(account, amount);
+  }
+
   function name() external view returns (string memory) {
     return s().name;
   }

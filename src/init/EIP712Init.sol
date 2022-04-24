@@ -4,7 +4,7 @@ pragma solidity 0.8.13;
 
 import "../libraries/LibEIP712.sol";
 
-contract ERC20Init {
+contract EIP712Init {
   /**
    * @dev Initializes the domain separator and parameter caches.
    *
