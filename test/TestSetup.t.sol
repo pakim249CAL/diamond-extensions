@@ -21,6 +21,8 @@ import "../src/init/ERC20Init.sol";
 
 import "./helpers/User.sol";
 
+import "forge-std/Test.sol";
+
 contract TestSetup is DSTest {
   Diamond diamond;
   DiamondCutFacet diamondCutFacet;
@@ -40,7 +42,7 @@ contract TestSetup is DSTest {
   User user1;
   User user2;
 
-  function setUp() public {
+  function setUp() public virtual {
     deployAll();
     populateAndCut();
     populateUsers();
@@ -173,7 +175,7 @@ contract TestSetup is DSTest {
   }
 
   function populateERC20PermitCuts() internal {
-    bytes4[] memory erc20PermitFunctionSelectors = new bytes4[](2);
+    bytes4[] memory erc20PermitFunctionSelectors = new bytes4[](3);
     {
       uint256 index;
       erc20PermitFunctionSelectors[index++] = erc20PermitFacet
@@ -181,6 +183,9 @@ contract TestSetup is DSTest {
         .selector;
       erc20PermitFunctionSelectors[index++] = erc20PermitFacet
         .permit
+        .selector;
+      erc20PermitFunctionSelectors[index++] = erc20PermitFacet
+        .DOMAIN_SEPARATOR
         .selector;
     }
     erc20PermitCuts.push(

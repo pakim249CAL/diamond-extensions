@@ -3,6 +3,7 @@ pragma solidity ^0.8.13;
 
 import "./TestSetup.t.sol";
 import "forge-std/Test.sol";
+import "forge-std/console2.sol";
 
 contract ERC20Test is Test, TestSetup {
   function testMint(uint256 amount) public {
@@ -12,6 +13,7 @@ contract ERC20Test is Test, TestSetup {
       ERC20Facet(address(diamond)).balanceOf(address(diamond)),
       amount
     );
+    console2.log(0);
   }
 
   function testBurn(uint256 amount) public {
