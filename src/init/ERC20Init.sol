@@ -6,7 +6,7 @@ import "../libraries/LibERC20.sol";
 
 contract ERC20Init {
   function init(string calldata name, string calldata symbol) external {
-    LibERC20.ERC20Storage storage s = LibERC20.erc20Storage();
+    LibStorage.ERC20Storage storage s = LibStorage.erc20Storage();
     s.name = name;
     s.symbol = symbol;
   }

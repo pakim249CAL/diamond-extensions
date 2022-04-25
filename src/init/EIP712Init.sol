@@ -18,7 +18,7 @@ contract EIP712Init {
    * contract upgrade].
    */
   function init(string memory name, string memory version) external {
-    LibEIP712.EIP712Storage storage s = LibEIP712.eip712Storage();
+    LibStorage.EIP712Storage storage s = LibStorage.eip712Storage();
     bytes32 hashedName = keccak256(bytes(name));
     bytes32 hashedVersion = keccak256(bytes(version));
     bytes32 typeHash = keccak256(

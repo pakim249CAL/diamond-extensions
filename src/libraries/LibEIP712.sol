@@ -1,27 +1,12 @@
 // SPDX-License-Identifier: MIT
 pragma solidity 0.8.13;
 
+import "./LibStorage.sol";
 import "./dep/ECDSA.sol";
 
 library LibEIP712 {
-  struct EIP712Storage {
-    bytes32 CACHED_DOMAIN_SEPARATOR;
-    uint256 CACHED_CHAIN_ID;
-    bytes32 HASHED_NAME;
-    bytes32 HASHED_VERSION;
-    bytes32 TYPE_HASH;
-  }
-  bytes32 constant EIP712_POSITION = keccak256("Diamond.ERC20.storage");
-
-  function eip712Storage() internal pure returns (EIP712Storage storage ds) {
-    bytes32 position = EIP712_POSITION;
-    assembly {
-      ds.slot := position
-    }
-  }
-
-  function s() private pure returns (EIP712Storage storage ds) {
-    return eip712Storage();
+  function s() private pure returns (LibStorage.EIP712Storage storage ds) {
+    return LibStorage.eip712Storage();
   }
 
   /**

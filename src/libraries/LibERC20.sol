@@ -1,29 +1,16 @@
 // SPDX-License-Identifier: MIT
 pragma solidity 0.8.13;
 
+import "./LibStorage.sol";
+
 library LibERC20 {
-  struct ERC20Storage {
-    string name;
-    string symbol;
-    uint256 totalSupply;
-    mapping(address => uint256) balances;
-    mapping(address => mapping(address => uint256)) allowances;
-  }
-  bytes32 constant ERC20_POSITION = keccak256("Diamond.ERC20.storage");
   bytes32 private constant _PERMIT_TYPEHASH =
     keccak256(
       "Permit(address owner,address spender,uint256 value,uint256 nonce,uint256 deadline)"
     );
 
-  function erc20Storage() internal pure returns (ERC20Storage storage ds) {
-    bytes32 position = ERC20_POSITION;
-    assembly {
-      ds.slot := position
-    }
-  }
-
-  function s() private pure returns (ERC20Storage storage ds) {
-    return erc20Storage();
+  function s() private pure returns (LibStorage.ERC20Storage storage ds) {
+    return LibStorage.erc20Storage();
   }
 
   /// EVENTS

@@ -9,27 +9,13 @@ import "./LibEIP712.sol";
 library LibERC20Permit {
   using Counters for Counters.Counter;
 
-  /// STORAGE
-  struct ERC20PermitStorage {
-    mapping(address => Counters.Counter) nonces;
-  }
-  bytes32 constant ERC20_PERMIT_POSITION =
-    keccak256("Diamond.ERC20Permit.storage");
-
-  function erc20PermitStorage()
-    internal
-    pure
-    returns (ERC20PermitStorage storage ds)
-  {
-    bytes32 position = ERC20_PERMIT_POSITION;
-    assembly {
-      ds.slot := position
-    }
-  }
-
   // Renamed to avoid shadowing with permit
-  function _s() private pure returns (ERC20PermitStorage storage ds) {
-    return erc20PermitStorage();
+  function _s()
+    private
+    pure
+    returns (LibStorage.ERC20PermitStorage storage ds)
+  {
+    return LibStorage.erc20PermitStorage();
   }
 
   /// PERMIT FUNCTIONALITY

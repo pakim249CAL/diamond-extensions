@@ -2,21 +2,22 @@
 pragma solidity 0.8.13;
 
 import "../libraries/LibERC20.sol";
+import "../Modifiers.sol";
 
-contract ERC20Facet {
+contract ERC20Facet is Modifiers {
   /// PRIVATE STORAGE GETTER
 
-  function s() private pure returns (LibERC20.ERC20Storage storage ds) {
-    return LibERC20.erc20Storage();
+  function s() private pure returns (LibStorage.ERC20Storage storage ds) {
+    return LibStorage.erc20Storage();
   }
 
   /// LOGIC
 
-  function mint(address account, uint256 amount) external {
+  function mint(address account, uint256 amount) external onlyOwner {
     LibERC20._mint(account, amount);
   }
 
-  function burn(address account, uint256 amount) external {
+  function burn(address account, uint256 amount) external onlyOwner {
     LibERC20._burn(account, amount);
   }
 

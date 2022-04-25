@@ -19,6 +19,8 @@ import "../src/facets/ERC721Facet.sol";
 import "../src/init/EIP712Init.sol";
 import "../src/init/ERC20Init.sol";
 
+import "./helpers/User.sol";
+
 contract TestSetup is DSTest {
   Diamond diamond;
   DiamondCutFacet diamondCutFacet;
@@ -34,6 +36,8 @@ contract TestSetup is DSTest {
 
   ERC20Init erc20Init;
   EIP712Init eip712Init;
+
+  User user1;
 
   function setUp() public {
     deployAll();
@@ -186,7 +190,7 @@ contract TestSetup is DSTest {
     );
   }
 
-  function testExample() public {
-    assertTrue(true);
+  function populateUsers() internal {
+    user1 = new User();
   }
 }
