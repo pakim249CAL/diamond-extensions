@@ -38,10 +38,12 @@ contract TestSetup is DSTest {
   EIP712Init eip712Init;
 
   User user1;
+  User user2;
 
   function setUp() public {
     deployAll();
     populateAndCut();
+    populateUsers();
   }
 
   function deployAll() internal {
@@ -192,5 +194,6 @@ contract TestSetup is DSTest {
 
   function populateUsers() internal {
     user1 = new User();
+    user2 = new User();
   }
 }

@@ -14,4 +14,21 @@ contract User {
   ) external {
     ERC20Facet(diamond).transfer(account, amount);
   }
+
+  function approve(
+    address diamond,
+    address account,
+    uint256 amount
+  ) external {
+    ERC20Facet(diamond).approve(account, amount);
+  }
+
+  function transferFrom(
+    address diamond,
+    address from,
+    address to,
+    uint256 amount
+  ) external {
+    ERC20Facet(diamond).transferFrom(from, to, amount);
+  }
 }

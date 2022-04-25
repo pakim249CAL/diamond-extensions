@@ -6,7 +6,7 @@ import "forge-std/Test.sol";
 
 contract ERC20Test is Test, TestSetup {
   function testMint(uint256 amount) public {
-    vm.assume(amount < 1 ether);
+    vm.assume(amount < 1e50);
     ERC20Facet(address(diamond)).mint(address(diamond), amount);
     assertEq(
       ERC20Facet(address(diamond)).balanceOf(address(diamond)),
@@ -15,12 +15,45 @@ contract ERC20Test is Test, TestSetup {
   }
 
   function testBurn(uint256 amount) public {
-    vm.assume(amount < 1 ether);
-    ERC20Facet(address(diamond)).mint(address(diamond), 1 ether);
+    vm.assume(amount < 1e50);
+    ERC20Facet(address(diamond)).mint(address(diamond), amount);
     ERC20Facet(address(diamond)).burn(address(diamond), amount);
     assertEq(
       ERC20Facet(address(diamond)).balanceOf(address(diamond)),
-      1 ether - amount
+      0
+    );
+  }
+
+  function testTransfer(uint256 amount) public {
+    vm.assume(amount < 1e50);
+    ERC20Facet(address(diamond)).mint(address(this), amount);
+    ERC20Facet(address(diamond)).transfer(address(user1), amount);
+    assertEq(
+      ERC20Facet(address(diamond)).balanceOf(address(user1)),
+      amount
+    );
+    assertEq(
+      ERC20Facet(address(diamond)).balanceOf(address(diamond)),
+      0
+    );
+  }
+
+  function testTransferFrom(uint256 amount) public {
+    vm.assume(amount < 1e50);
+    ERC20Facet(address(diamond)).mint(address(user1), amount);
+    user1.approve(address(diamond), address(this), amount);
+    ERC20Facet(address(diamond)).transferFrom(
+      address(user1),
+      address(user2),
+      amount
+    );
+    assertEq(
+      ERC20Facet(address(diamond)).balanceOf(address(user2)),
+      amount
+    );
+    assertEq(
+      ERC20Facet(address(diamond)).balanceOf(address(user1)),
+      0
     );
   }
 

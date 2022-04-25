@@ -19,6 +19,7 @@ library LibStorage {
     bytes32 HASHED_VERSION;
     bytes32 TYPE_HASH;
   }
+
   struct ERC20PermitStorage {
     mapping(address => Counters.Counter) nonces;
   }
